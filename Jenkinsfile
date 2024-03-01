@@ -39,7 +39,7 @@ pipeline {
                 timeout(time: 20, unit: 'MINUTES'){
                     script{
                         println('packet')
-                        tools.PrintMes("packet the code", 'green1')
+                        tools.PrintMes("packet the code", 'green')
                     }
                 }
             }
@@ -51,7 +51,7 @@ pipeline {
                 timeout(time: 30, unit: 'MINUTES'){
                     script{
                         println("scan code")
-                        tools.PrintMes("this is my ansiColor test", 'green')
+                        tools.PrintMes("this is my ansiColor test", 'blue')
                     }
                 }
             }
