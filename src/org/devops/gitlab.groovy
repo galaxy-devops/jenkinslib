@@ -97,3 +97,30 @@ def CreateRepoFile(projectId,filePath,fileContent){
     reqBody = """{"branch": "master","encoding":"base64","content":"${fileContent}","commit_message":"create a new file"}"""
     response = HttpReq('POST',apiUrl,reqBody)
 }
+
+// get file content
+def GetRepoFile(projectId,filePath){
+
+    /**
+     * @param   projectId   the project ID
+     * @param   filePath    the file path
+     */
+
+    apiUrl = "projects/${projectId}/repository/files/${filePath}/raw?ref=master"
+    response = HttpReq('GET',apiUrl,'')
+    return response.content
+}
+
+// update file
+def UpdateRepoFile(projectId,filePath,fileContent){
+
+    /**
+     * @param   projectId   the project ID
+     * @param   filePath    the file path
+     * @param   fileContent file content
+     */
+
+    apiUrl = "projects/${projectId}/repository/files/${filePath}"
+    reqBody = """{"branch": "master","encoding":"base64", "content": "${fileContent}", "commit_message": "update a new file"}"""
+    response = HttpReq('PUT',apiUrl,reqBody)
+}

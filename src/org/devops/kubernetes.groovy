@@ -38,3 +38,16 @@ def GetDeployment(nameSpace,deployName){
     response = HttpReq('GET',apiUrl,'')
     return response
 }
+
+// update Deployment resource object
+def UpdateDeployment(nameSpace,deployName,deployBody){
+    
+    /**
+     * @param   nameSpace       the namespace in the k8s
+     * @param   deployName      deploy resource object name of k8s
+     * @param   deployBody      the deploy content
+     */
+    
+    apiUrl = "namespaces/${nameSpace}/deployments/${deployName}"
+    response = HttpReq('PUT',apiUrl,deployBody)
+}
