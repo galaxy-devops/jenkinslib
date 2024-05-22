@@ -84,3 +84,16 @@ def CreateMr(projectId,sourceBranch,targetBranch,title,assigneeUser=""){
         println(e)
     }
 }
+
+// create file
+def CreateRepoFile(projectId,filePath,fileContent){
+    /**
+     * @param   projectId       the project ID
+     * @param   filePath        file path
+     * @param   fileContent     file content which need to put on the gitlab
+     */
+
+    apiUrl = "projects/${projectId}/repository/files/${filePath}"
+    reqBody = """{"branch": "master","encoding":"base64","content":"${fileContent}","commit_message":"create a new file"}"""
+    response = HttpReq('POST',apiUrl,reqBody)
+}
