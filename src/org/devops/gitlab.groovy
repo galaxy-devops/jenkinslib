@@ -124,3 +124,47 @@ def UpdateRepoFile(projectId,filePath,fileContent){
     reqBody = """{"branch": "master","encoding":"base64", "content": "${fileContent}", "commit_message": "update a new file"}"""
     response = HttpReq('PUT',apiUrl,reqBody)
 }
+
+// AcceptMR
+def AcceptMr(projectId,mergeId){
+    
+    /**
+     * @param   projectId   the project ID
+     * @param   mergeId     merge ID
+     */
+
+    def apiUrl = "projects/${projectId}/merge_requests/${mergeId}/merge"
+    HttpReq('PUT',apiUrl,'')
+}
+
+// Retrieve MR status after AcceptMr
+def GetSingleMr(projectId,mergerRequestIid){
+
+    /**
+     * @param   projectId           the project ID
+     * @param   mergerRequestIid    the MR ID
+     */
+
+    apiUrl = "projects/${projectId}/merge_requests/${mergerRequestIid}"
+    response = HttpReq("GET",apiUrl,'')
+    newResponse = response.content
+    def branchInfo = readJSON text: """${newResponse}"""
+    if(branchInfo.size() == 0){
+        return "error"
+    } else {
+        state = branchInfo["state"]
+        return state
+    }
+}
+
+// Delete branch
+def DeleteBranch(projectId,branchName){
+
+    /**
+     * @param   projectId       the project ID
+     * @param   branchName      the branch name
+     */
+
+     apiUrl = "/projects/${projectId}/repository/branches/${branchName}"
+     response = HttpReq("DELETE",apiUrl,'').content
+}
